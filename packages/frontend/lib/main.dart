@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
-import 'core/data/remote_task_repo.dart';
-import 'home_page.dart';
+import 'core/mutations/get_all_task.dart';
+import 'core/store/task_store.dart';
+import 'pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  getData();
-  runApp(const MyApp());
-}
-
-void getData() async {
-  final data = await RemoteTaskRepo().fetchAllTasks();
-  print(data);
+  runApp(VxState(
+    store: TaskStore(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -19,6 +18,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GetAllTaskMutation();
+
     return MaterialApp(
       title: 'Task App',
       theme: ThemeData(useMaterial3: true),
