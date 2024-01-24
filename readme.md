@@ -15,7 +15,7 @@ In this project you will find an example of implementing a monorepo with backend
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/ingedevs/fullstack_task_app.git
 ```
 
 Go to the project directory
