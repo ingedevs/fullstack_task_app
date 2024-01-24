@@ -2,25 +2,15 @@ import 'package:shared/shared.dart';
 
 /// A class that implements [TaskRepo] using an in-memory list.
 class InMemoryTaskRepo implements TaskRepo {
-  final List<Task> _data = [
-    Task(
-      id: '1',
-      title: 'Task 1',
-    ),
-    Task(
-      id: '2',
-      title: 'Task 2',
-    ),
-  ];
+  final List<Task> _data = [];
 
   /// Returns the list of tasks.
   List<Task> get tasks => _data;
 
   @override
   Future<Task> addTask(Task task) async {
-    final newTask = task.copyWith(id: '${_data.length + 1}');
-    _data.add(newTask);
-    return newTask;
+    _data.add(task);
+    return task;
   }
 
   @override

@@ -7,6 +7,7 @@ Future<Response> onRequest(RequestContext context, String id) async {
   return switch (context.request.method) {
     HttpMethod.get => await _onGet(context, id),
     HttpMethod.post => await _onPost(context, id),
+    HttpMethod.put => await _onPut(context, id),
     HttpMethod.delete => await _onDelete(context, id),
     _ => Response(statusCode: HttpStatus.notFound),
   };
@@ -18,6 +19,13 @@ Future<Response> _onGet(RequestContext context, String id) async {
 }
 
 Future<Response> _onPost(RequestContext context, String id) async {
+  final json = await context.request.json() as Map<String, dynamic>;
+  final task = Task.fromJson(json).copyWith(id: id);
+  await context.read<TaskRepo>().updateTask(task);
+  return Response();
+}
+
+Future<Response> _onPut(RequestContext context, String id) async {
   final json = await context.request.json() as Map<String, dynamic>;
   final task = Task.fromJson(json).copyWith(id: id);
   await context.read<TaskRepo>().updateTask(task);
